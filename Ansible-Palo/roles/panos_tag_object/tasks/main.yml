@@ -1,0 +1,14 @@
+---
+# tasks file for panos_tag_object
+- name: Create tags in {{ group }}
+  paloaltonetworks.panos.panos_tag_object:
+    provider: "{{ provider }}"
+    name: "{{ item.value.name }}"
+    color: "{{ item.value.color }}"
+    comments: "{{ item.value.description }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+  with_dict: "{{ changes['tags'] }}"
+  when: changes['tags'] is defined
+# for testing only ignore errors
+  ignore_errors: "true"

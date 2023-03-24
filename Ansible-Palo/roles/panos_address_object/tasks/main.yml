@@ -1,0 +1,17 @@
+---
+
+# tasks file for panos_address_object
+- name: Create Address Object for {{ group }}
+  panos_address_object:
+    provider: "{{ provider }}"
+    name: "{{ item.value.address_name }}"
+    address_type: "{{ item.value.address_type }}"
+    value: "{{ item.value.address_value }}"
+    description: "{{ item.value.description | default(omit) }}"
+    tag: "{{ item.value.tag_name | default(omit) }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+  with_dict: "{{ changes['address'] }}"
+  when: changes['address'] is defined
+# for testing only ignore errors
+  ignore_errors: "true"

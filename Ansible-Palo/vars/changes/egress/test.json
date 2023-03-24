@@ -1,0 +1,29 @@
+{
+    "address":{
+        "1":{
+            "address_type": "ip-netmask",
+            "address_value": "3.3.3.3",
+            "address_name": "test_ip-1"
+        }
+    },
+    "address_group":{
+        "1":{
+
+        }
+    },
+    "tag": {
+        "1":{
+
+        }
+    },
+    "service": {
+        "1":{
+
+        }
+    },
+    "security-rule": {
+        "1":{
+            
+        }
+    }
+}

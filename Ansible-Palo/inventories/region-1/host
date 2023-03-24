@@ -1,0 +1,7 @@
+[palo_alto_ingress]
+palo_alto_host-2.yml
+[palo_alto_egress]
+palo_alto_host-1.yml
+[all:children]
+palo_alto_egress
+palo_alto_ingress

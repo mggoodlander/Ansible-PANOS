@@ -1,0 +1,4 @@
+[palo_alto_ingress]
+palo_alto_host-3.yml
+[palo_alto_egress]
+palo_alto_host-4.yml

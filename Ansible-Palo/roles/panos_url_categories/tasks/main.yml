@@ -1,0 +1,14 @@
+---
+# tasks file for panos_url_categories
+- name: Create Url Catagories for {{ group }}
+  paloaltonetworks.panos.panos_custom_url_category:
+    provider: "{{ provider }}"
+    name: "{{ item.value.name }}"
+    description: "{{ item.value.description }}"
+    url_value: "{{ item.value.urls }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+  with_dict: "{{ changes['custom-url-category'] }}"
+  when: changes['custom-url-category'] is defined
+# for testing only ignore errors
+  ignore_errors: "true"

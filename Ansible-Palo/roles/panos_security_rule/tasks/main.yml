@@ -1,0 +1,27 @@
+---
+# tasks file for panos_security_rule
+- name: Create Security Rules in {{ group }}
+  paloaltonetworks.panos.panos_security_rule:
+    provider: "{{ provider }}"
+    rule_name: "{{ item.value.rule_name }}"
+    description: "{{ item.value.description | default(omit) }}"
+    tag_name: "{{ item.value.tag_name | default(omit) }}"
+    source_zone: "{{ item.value.source_zone }}"
+    source_ip: "{{ item.value.source_ip }}"
+    source_user: "{{ item.value.source_user | default('any') }}"
+    destination_zone: "{{ item.value.destination_zone }}"
+    destination_ip: "{{ item.value.destination_ip }}"
+    category: "{{ item.value.category | default('any') }}"
+    application: "{{ item.value.application | default('any') }}"
+    service: "{{ item.value.service | default('application-default') }}"
+    group_profile: "{{ item.value.group_profile }}"
+    url_filtering: "{{ item.value.url_filtering | default(omit) }}"
+    log_setting: "{{ item.value.log_setting }}"
+    location: "{{ item.value.location | default('top') }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+    action: "{{ item.value.action | default('Deny') }}"
+  with_dict: "{{ changes['security-rules'] }}"
+  when: changes['security-rules'] is defined
+# for testing only ignore errors
+  ignore_errors: "true"

@@ -1,0 +1,16 @@
+---
+# tasks file for panos_service_object
+- name: Create Service Object for {{ group }}
+  paloaltonetworks.panos.panos_service_object:
+    provider: "{{ provider }}"
+    name: "{{ item.value.name }}"
+    protocol: "{{ item.value.protocol }}"
+    destination_port: "{{ item.value.destination_port }}"
+    description: "{{ item.value.description }}"
+    tag: "{{ item.value.tag_name }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+  with_dict: "{{ changes['service'] }}"
+  when: changes['service'] is defined
+# for testing only ignore errors
+  ignore_errors: "true"

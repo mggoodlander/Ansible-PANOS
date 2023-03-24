@@ -1,0 +1,19 @@
+---
+- name: Panos Security rule Change.
+  hosts: "{{ group }}"
+  connection: local
+  gather_facts: "false"
+
+
+
+  vars:
+   - provider:
+      api_key: "{{  api_key | default(omit) }}"
+      ip_address: "{{host}}"
+      username: "{{username | default( 'admin' )}}"
+      password: "{{password | default( 'password' )}}"
+   - changes: "{{ lookup('file', 'vars/changes/{{flow}}/{{change}}.json') | from_json }}"
+
+  roles:
+   - panos_address_object
+   - panos_address_group

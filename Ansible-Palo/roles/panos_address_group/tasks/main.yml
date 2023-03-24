@@ -1,0 +1,17 @@
+---
+# tasks file for panos_address_group
+- name: Create Address Group for {{ group }}
+  panos_address_group:
+    provider: '{{ provider }}'
+    name: "{{ item.value.address_group_name }}"
+    static_value: "{{ item.value.static_value | default(omit) }}"
+    dynamic_value: "{{ item.value.dynamic_value | default(omit) }}"
+    # this is used for dynamic Address Group is is where you place the Tag you wish to use.
+    # (it is either dynamic_value or static_value you cannot use both)
+    tag: "{{ item.value.tag_name | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+  with_dict: "{{ changes['address_groups'] }}"
+  when: changes['address_groups'] is defined
+  # for testing only ignore errors
+  ignore_errors: "true"
