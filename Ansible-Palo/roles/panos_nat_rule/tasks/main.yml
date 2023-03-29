@@ -1,0 +1,23 @@
+---
+# tasks file for panos_nat_rule
+- name: Create Nat Rule for {{ group }}
+  paloaltonetworks.panos.panos_nat_rule:
+    provider: "{{ provider }}"
+    rule_name: "{{ item.value.rule_name | default(omit) }}"
+    source_zone: "{{ item.value.source_zone | default(omit) }}"
+    source_ip: "{{ item.value.source_ip | default(omit) }}"
+    destination_zone: "{{ item.value.destination_zone | default(omit) }}"
+    destination_ip: "{{ item.value.destination_ip | default(omit) }}"
+    service: "{{ item.value.service | default(omit) }}"
+    snat_type: "{{ item.value.snat_type | default(omit) }}"
+    snat_interface: "{{ item.value.snat_interface | default(omit) }}"
+    dnat_dynamic_address: "{{ item.value.dnat_dynamic_address | default(omit) }}"
+    dnat_port: "{{ item.value.dnat_port | default(omit) }}"
+    location: "{{ item.value.location | default(omit) }}"
+    existing_rule: "{{ item.value.existing_rule | default(omit) }}"
+    vsys: "{{ item.value.vsys | default(omit) }}"
+    device_group: "{{ item.value.device_group | default(omit) }}"
+  with_dict: "{{ changes['nat-rules'] }}"
+  when: changes['nat-rules'] is defined
+# for testing only ignore errors
+  ignore_errors: "true"

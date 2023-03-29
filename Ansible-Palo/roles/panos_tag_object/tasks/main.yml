@@ -4,8 +4,8 @@
   paloaltonetworks.panos.panos_tag_object:
     provider: "{{ provider }}"
     name: "{{ item.value.name }}"
-    color: "{{ item.value.color }}"
-    comments: "{{ item.value.description }}"
+    color: "{{ item.value.color | default(omit) }}"
+    comments: "{{ item.value.description | default(omit) }}"
     vsys: "{{ item.value.vsys | default(omit) }}"
     device_group: "{{ item.value.device_group | default(omit) }}"
   with_dict: "{{ changes['tags'] }}"

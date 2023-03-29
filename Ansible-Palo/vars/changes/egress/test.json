@@ -3,23 +3,42 @@
         "1":{
             "address_type": "ip-netmask",
             "address_value": "3.3.3.3",
-            "address_name": "test_ip-1"
+            "address_name": "test_ip-1",
+            "tag_name": "test_ip"
+        },
+        "2":{
+            "address_type": "fqdn",
+            "address_value": "test.com",
+            "address_name": "test.com",
+            "tag_name":"test_fqdn"
         }
     },
-    "address_group":{
+    "address_groups":{
         "1":{
+            "address_group_name": "test_static_group",
+            "static_value":[
+                "test_ip-1",
+                "test_fqdn"
+            ]
+        },
+        "2":{
+            "address_group_name": "test_dynamic_group",
+            "dynamic_value":["test_ip"]
 
         }
     },
     "tag": {
         "1":{
-
+            "name": "test_tag"
         }
     },
     "service": {
         "1":{
-
+            ""
         }
+    },
+    "custom-url-category": {
+
     },
     "security-rule": {
         "1":{
